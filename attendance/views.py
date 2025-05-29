@@ -10,6 +10,7 @@ from django.contrib.auth import login
 import logging
 import base64
 import json
+from . import views
 
 from .models import Student, Attendance, FingerPrint, Department
 from .forms import StudentRegistrationForm, FingerPrintRegistrationForm, AttendanceSearchForm
