@@ -1,0 +1,193 @@
+{% extends 'attendance/base.html' %}
+
+{% block title %}Register Fingerprint - {{ student.name }} - Fingerprint Attendance System{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Register Fingerprint for {{ student.name }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <h5>Student Information</h5>
+                        <p><strong>Name:</strong> {{ student.name }}</p>
+                        <p><strong>Roll Number:</strong> {{ student.roll_number }}</p>
+                        <p><strong>Department:</strong> {{ student.department.name }}</p>
+                    </div>
+                    
+                    {% if registered_prints %}
+                    <div class="alert alert-success mb-4">
+                        <h5>Registered Fingerprints</h5>
+                        <ul>
+                            {% for print in registered_prints %}
+                            <li>{{ print.finger_label }} (registered on {{ print.created_at|date:"M d, Y" }})</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    
+                    <form method="post" id="fingerprintForm">
+                        {% csrf_token %}
+                        <input type="hidden" name="fingerprint_data" id="fingerprintData">
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.finger_label.id_for_label }}" class="form-label">Finger Label</label>
+                            {{ form.finger_label }}
+                            {% if form.finger_label.errors %}
+                                <div class="text-danger">
+                                    {{ form.finger_label.errors }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Select which finger is being registered</div>
+                        </div>
+                        
+                        <div class="fingerprint-container">
+                            <h5>Scan Fingerprint</h5>
+                            <p>Place the student's finger on the scanner</p>
+                            
+                            <div class="fingerprint-scanner" id="fingerprintScanner">
+                                <img src="/static/img/fingerprint-icon.png" alt="Fingerprint Scanner" id="fingerprintImage">
+                            </div>
+                            
+                            <div class="finger-status mt-3" id="fingerStatus">Ready to scan</div>
+                            
+                            <button type="button" class="btn btn-primary mt-3" id="scanBtn">
+                                Start Scan
+                            </button>
+                        </div>
+                        
+                        <div class="success-message" id="successMessage">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-check-circle-fill text-success fs-1"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mt-0">Fingerprint Captured Successfully</h5>
+                                    <p>The fingerprint has been successfully captured. You can now save it.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-success" id="saveBtn" disabled>Save Fingerprint</button>
+                            <a href="{% url 'student_list' %}" class="btn btn-outline-secondary">Cancel & Return to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Add Bootstrap form classes to form fields
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('select').forEach(function(input) {
+            input.classList.add('form-control');
+        });
+        
+        // Digital Persona fingerprint scanner integration
+        const scanBtn = document.getElementById('scanBtn');
+        const fingerprintScanner = document.getElementById('fingerprintScanner');
+        const fingerStatus = document.getElementById('fingerStatus');
+        const successMessage = document.getElementById('successMessage');
+        const saveBtn = document.getElementById('saveBtn');
+        const fingerprintData = document.getElementById('fingerprintData');
+        
+        // Initialize Digital Persona SDK
+        let dpfpSDK;
+        try {
+            // Initialize DP SDK - This is a placeholder, you'll need to replace with actual SDK initialization
+            dpfpSDK = new DigitalPersona();
+            console.log("Digital Persona SDK initialized successfully");
+        } catch (e) {
+            console.error("Failed to initialize Digital Persona SDK:", e);
+            fingerStatus.textContent = "Error: Could not initialize fingerprint device";
+            fingerStatus.classList.add("text-danger");
+        }
+        
+        scanBtn.addEventListener('click', function() {
+            // Start the scanning process
+            fingerStatus.textContent = "Scanning... Place finger on the scanner";
+            fingerStatus.classList.remove("text-danger");
+            fingerStatus.classList.add("text-primary");
+            fingerprintScanner.classList.add("scanning");
+            
+            // Simulate fingerprint scanning (replace with actual DP SDK code)
+            simulateFingerprintScan();
+        });
+        
+        function simulateFingerprintScan() {
+            // This function simulates the fingerprint scanning process
+            // In a real implementation, you would use the Digital Persona SDK methods
+            
+            setTimeout(() => {
+                // Simulate fingerprint capture (3 seconds delay)
+                if (Math.random() > 0.2) { // 80% success rate for demo
+                    // Success
+                    fingerprintScanner.classList.remove("scanning");
+                    fingerStatus.textContent = "Fingerprint captured successfully!";
+                    fingerStatus.classList.remove("text-primary");
+                    fingerStatus.classList.add("text-success");
+                    
+                    // Show success message
+                    successMessage.style.display = "block";
+                    
+                    // Enable save button
+                    saveBtn.disabled = false;
+                    
+                    // Set fingerprint data (in real app, this would be the actual template)
+                    fingerprintData.value = btoa(String.fromCharCode.apply(null, 
+                        new Uint8Array(Array.from({length: 40}, () => Math.floor(Math.random() * 256)))));
+                } else {
+                    // Failure
+                    fingerprintScanner.classList.remove("scanning");
+                    fingerStatus.textContent = "Failed to capture fingerprint. Please try again.";
+                    fingerStatus.classList.remove("text-primary");
+                    fingerStatus.classList.add("text-danger");
+                }
+            }, 3000);
+        }
+        
+        // In a real implementation, you would integrate the Digital Persona SDK like this:
+        /*
+        function startFingerprintCapture() {
+            dpfpSDK.startCapture({
+                onSuccess: function(result) {
+                    // Process successful capture
+                    fingerprintScanner.classList.remove("scanning");
+                    fingerStatus.textContent = "Fingerprint captured successfully!";
+                    fingerStatus.classList.remove("text-primary");
+                    fingerStatus.classList.add("text-success");
+                    
+                    // Show success message
+                    successMessage.style.display = "block";
+                    
+                    // Enable save button
+                    saveBtn.disabled = false;
+                    
+                    // Set fingerprint data
+                    fingerprintData.value = result.templateBase64;
+                },
+                onFailure: function(error) {
+                    // Handle capture failure
+                    fingerprintScanner.classList.remove("scanning");
+                    fingerStatus.textContent = "Failed to capture fingerprint: " + error.message;
+                    fingerStatus.classList.remove("text-primary");
+                    fingerStatus.classList.add("text-danger");
+                }
+            });
+        }
+        */
+    });
+</script>
+{% endblock %}
