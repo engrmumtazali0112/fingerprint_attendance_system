@@ -188,11 +188,27 @@ fingerprint-attendance-system/
 #### 🏠 Dashboard
 > Real-time overview of attendance statistics and quick actions
 
+![Dashboard](Demo/dashboard.JPG)
+
 #### 🔍 Fingerprint Registration
 > Intuitive interface for registering student fingerprints
 
+![Fingerprint Registration](Demo/regfinger.JPG)
+
 #### ⚡ Live Attendance
 > Fast and accurate fingerprint recognition for attendance
+
+![Take Attendance](Demo/Take%20attendance.JPG)
+
+#### 👥 Student Management
+> Complete student information and profile management
+
+**Student List Overview**
+![Student List](Demo/Stdlist.JPG)
+
+**Student Information Details**
+![Student Information](Demo/stdinformation.JPG)
+![Student Information Extended](Demo/stdinformation1.JPG)
 
 #### 📊 Comprehensive Reports
 > Detailed analytics with export capabilities
@@ -202,6 +218,8 @@ fingerprint-attendance-system/
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 - **Interactive Dashboard**: Live statistics and quick navigation
 - **Professional Reports**: Clean, exportable attendance reports
+- **Student Management**: Complete profile and information tracking
+- **Multi-view Interface**: Different perspectives for comprehensive data management
 
 ---
 
