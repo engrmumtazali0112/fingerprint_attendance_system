@@ -89,8 +89,8 @@ graph TB
 
 1. **📥 Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/fingerprint-attendance-system.git
-   cd fingerprint-attendance-system
+   git clone https://github.com/engrmumtazali0112/fingerprint_attendance_system.git
+   cd fingerprint_attendance_system
    ```
 
 2. **🏗️ Create Virtual Environment**
@@ -371,8 +371,8 @@ We welcome contributions! Here's how you can help:
 ### 🆘 Getting Help
 
 - 📖 **Documentation**: Check this README and code comments
-- 🐛 **Issues**: Report bugs via GitHub Issues
-- 💬 **Discussions**: Join our GitHub Discussions
+- 🐛 **Issues**: Report bugs via [GitHub Issues](https://github.com/engrmumtazali0112/fingerprint_attendance_system/issues)
+- 💬 **Discussions**: Join our [GitHub Discussions](https://github.com/engrmumtazali0112/fingerprint_attendance_system/discussions)
 - 📧 **Contact**: Reach out via email
 
 ### 🔧 Troubleshooting
@@ -432,7 +432,7 @@ in the Software without restriction...
 
 ### 🌟 Star this repository if you found it helpful!
 
-**Made with ❤️ by the development team**
+**Made with ❤️ by [engrmumtazali0112](https://github.com/engrmumtazali0112)**
 
 [⬆️ Back to Top](#-fingerprint-attendance-system)
 
@@ -442,8 +442,8 @@ in the Software without restriction...
 
 ## 📊 Project Statistics
 
-![GitHub stars](https://img.shields.io/github/stars/yourusername/fingerprint-attendance-system?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/fingerprint-attendance-system?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/yourusername/fingerprint-attendance-system?style=social)
-![GitHub contributors](https://img.shields.io/github/contributors/yourusername/fingerprint-attendance-system)
-![GitHub last commit](https://img.shields.io/github/last-commit/yourusername/fingerprint-attendance-system)
+![GitHub stars](https://img.shields.io/github/stars/engrmumtazali0112/fingerprint_attendance_system?style=social)
+![GitHub forks](https://img.shields.io/github/forks/engrmumtazali0112/fingerprint_attendance_system?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/engrmumtazali0112/fingerprint_attendance_system?style=social)
+![GitHub contributors](https://img.shields.io/github/contributors/engrmumtazali0112/fingerprint_attendance_system)
+![GitHub last commit](https://img.shields.io/github/last-commit/engrmumtazali0112/fingerprint_attendance_system)
