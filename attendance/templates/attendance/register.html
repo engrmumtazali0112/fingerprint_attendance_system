@@ -1,0 +1,80 @@
+{% extends 'attendance/base.html' %}
+
+{% block title %}Register Student - Fingerprint Attendance System{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Register New Student</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Full Name Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.name.id_for_label }}" class="form-label">Full Name</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                <div class="text-danger">
+                                    {{ form.name.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Roll Number Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.roll_number.id_for_label }}" class="form-label">Roll Number</label>
+                            {{ form.roll_number }}
+                            {% if form.roll_number.errors %}
+                                <div class="text-danger">
+                                    {{ form.roll_number.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Department Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.department.id_for_label }}" class="form-label">Department</label>
+                            {{ form.department }}
+                            {% if form.department.errors %}
+                                <div class="text-danger">
+                                    {{ form.department.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Fingerprint Label Field (Which finger to register) -->
+                        <div class="mb-3">
+                            <label for="{{ form.finger_label.id_for_label }}" class="form-label">Select Finger for Registration</label>
+                            {{ form.finger_label }}
+                            {% if form.finger_label.errors %}
+                                <div class="text-danger">
+                                    {{ form.finger_label.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Active Student Checkbox -->
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="{{ form.is_active.id_for_label }}" name="{{ form.is_active.name }}" checked>
+                            <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                                Active Student
+                            </label>
+                        </div>
+                        
+                        <!-- Submit and Cancel Buttons -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Register Student</button>
+                            <a href="{% url 'student_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
